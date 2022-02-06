@@ -1,4 +1,5 @@
 ﻿using BulkyBookWeb.Data;
+using BulkyBookWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,8 +18,8 @@ namespace BulkyBookWeb.Controllers
         }
         public IActionResult Index()
         {
-            var objCategoryList = _bulkyContext.Categories.ToList();
-            return View();
+            IEnumerable<Category> objCategoryList = _bulkyContext.Categories.ToList();
+            return View(objCategoryList);
         }
     }
 }

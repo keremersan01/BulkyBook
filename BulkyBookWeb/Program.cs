@@ -8,6 +8,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<BulkyContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// to hot load 
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
