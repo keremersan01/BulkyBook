@@ -29,10 +29,13 @@ namespace BulkyBookWeb.Controllers
         [HttpPost]
         public IActionResult Create(Category obj)
         {
-            // does smt
-            _bulkyContext.Categories.Add(obj);
-            _bulkyContext.SaveChanges();
-            return RedirectToAction("Index"); 
+            if(ModelState.IsValid)
+            {
+                _bulkyContext.Categories.Add(obj);
+                _bulkyContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(obj);
         }
     }
 }
