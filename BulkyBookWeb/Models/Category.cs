@@ -13,6 +13,7 @@ namespace BulkyBookWeb.Models
         public int Id  { get; set; }
         [Required]
         public string Name { get; set; }
+        [Display(Name ="Display Order")] // it uses "Display Order" string for validation errors 
         public int DisplayOrder { get; set; }
         public DateTime CreationTime{ get; set; } = DateTime.Now;
     }
