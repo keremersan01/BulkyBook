@@ -29,17 +29,81 @@ namespace BulkyBookWeb.Controllers
         [HttpPost]
         public IActionResult Create(Category obj)
         {
-            if(obj.Name == obj.DisplayOrder.ToString())
+            if (obj.Name == obj.DisplayOrder.ToString())
             {
                 ModelState.AddModelError("CustomError", "The display order cannot exactly match the name");
             }
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _bulkyContext.Categories.Add(obj);
                 _bulkyContext.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(obj);
+        }
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var categoryFromDb = _bulkyContext.Categories.Find(id);
+            //var categoryFromDb = _bulkyContext.Categories.FirstOrDefault(id);
+            //var categoryFromDb = _bulkyContext.Categories.SingleOrDefault(id);
+
+
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+            return View(categoryFromDb);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Category obj)
+        {
+            if (obj.Name == obj.DisplayOrder.ToString())
+            {
+                ModelState.AddModelError("CustomError", "The display order cannot exactly match the name");
+            }
+            if (ModelState.IsValid)
+            {
+                _bulkyContext.Categories.Update(obj);
+                _bulkyContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(obj);
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var categoryFromDb = _bulkyContext.Categories.Find(id);
+            //var categoryFromDb = _bulkyContext.Categories.FirstOrDefault(id);
+            //var categoryFromDb = _bulkyContext.Categories.SingleOrDefault(id);
+
+
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+            return View(categoryFromDb);
+        }
+
+        [HttpPost]
+        public IActionResult DeletePOST(int? id)
+        {
+            var obj = _bulkyContext.Categories.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            _bulkyContext.Categories.Remove(obj);
+            _bulkyContext.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
