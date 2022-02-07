@@ -21,5 +21,18 @@ namespace BulkyBookWeb.Controllers
             IEnumerable<Category> objCategoryList = _bulkyContext.Categories.ToList();
             return View(objCategoryList);
         }
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Category obj)
+        {
+            // does smt
+            _bulkyContext.Categories.Add(obj);
+            _bulkyContext.SaveChanges();
+            return RedirectToAction("Index"); 
+        }
     }
 }
